@@ -11,9 +11,9 @@ function Navbar() {
 						Gadjah Mada Aerospace Team
 					</p>
 				</div>
-				<div className="flex gap-3 text-lg font-bold text-slate-100">
-					<p>ID: 43210 </p>
-					<p>Time: 123 </p>
+				<div className="flex gap-3 text-lg font-bold">
+					<p className="text-slate-100">ID: 43210 </p>
+					<p className="text-slate-100">Time: 123 </p>
 				</div>
 			</nav>
 		</>
