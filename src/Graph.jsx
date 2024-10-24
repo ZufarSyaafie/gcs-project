@@ -25,23 +25,23 @@ ChartJS.register(
 	Legend,
 );
 
-function Graph() {
+function Graph(props) {
 	const data = {
-		labels: ["January", "February", "March", "April", "May", "June", "July"],
+		labels: props.time,
 		datasets: [
 			{
-				label: "My First Dataset",
-				data: [65, 59, 100, 200, 56, 55, 40],
+				label: props.label,
+				data: props.data,
 				fill: false,
-				borderColor: "#F4743B",
-				tension: 0.1,
+				borderColor: "#70AE6E",
+				tension: 0.5,
 			},
 		],
 	};
 	return (
 		<>
-			<div className="m-4 box-border flex w-[475px] flex-col items-center gap-4 rounded-md bg-slate-50 p-2 shadow-md">
-				<h1 className="text-xl font-bold">Tittle</h1>
+			<div className="m-4 box-border flex w-[475px] flex-col items-center gap-4 rounded-lg bg-slate-50 p-2 shadow-md transition-all duration-200 hover:scale-105 hover:shadow-lg">
+				<h1 className="text-xl font-bold">{props.tittle}</h1>
 				<Line data={data} />
 			</div>
 		</>

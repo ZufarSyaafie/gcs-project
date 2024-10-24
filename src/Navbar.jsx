@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./assets/gmat.png";
 
-function Navbar() {
+function Navbar(props) {
 	return (
 		<>
 			<nav className="fixed top-0 z-[99999] flex h-[7vh] w-[100vw] items-center justify-between bg-[#483C46] p-2 px-8 shadow-md">
@@ -12,8 +12,8 @@ function Navbar() {
 					</p>
 				</div>
 				<div className="flex gap-3 text-lg font-bold">
-					<p className="text-slate-100">ID: 43210 </p>
-					<p className="text-slate-100">Time: 123 </p>
+					<p className="text-slate-100">ID: {props.id} </p>
+					<p className="text-slate-100">Time: {props.time} </p>
 				</div>
 			</nav>
 		</>

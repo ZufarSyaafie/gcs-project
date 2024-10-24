@@ -10,7 +10,7 @@ const MapComponent = (props) => {
 				<MapContainer
 					className="h-full w-full"
 					center={props.data}
-					zoom={15}
+					zoom={7}
 					scrollWheelZoom={true}
 					ref={props.view}
 				>
