@@ -17,12 +17,15 @@ function App() {
 	const mapRef = useRef();
 
 	useEffect(() => {
-		const Socket = new WebSocket("ws://localhost:3001");
+		const Socket = new WebSocket("http://localhost:3001");
+
+		Socket.onopen = () => {
+			console.log("Connected to the server");
+		};
 
 		Socket.onmessage = (event) => {
 			const data = JSON.parse(event.data);
 			setCoord([data.lat, data.lon]);
-			console.log([data.lat, data.lon]);
 
 			setId(data.teamID);
 
@@ -32,7 +35,6 @@ function App() {
 				if (updatedTime.length > 10) {
 					updatedTime.shift();
 				}
-				console.log(updatedTime);
 
 				return updatedTime;
 			});
@@ -43,7 +45,6 @@ function App() {
 				if (updatedAlt.length > 10) {
 					updatedAlt.shift();
 				}
-				console.log(updatedAlt);
 
 				return updatedAlt;
 			});
@@ -54,7 +55,6 @@ function App() {
 				if (updatedYaw.length > 10) {
 					updatedYaw.shift();
 				}
-				console.log(updatedYaw);
 
 				return updatedYaw;
 			});
@@ -65,7 +65,6 @@ function App() {
 				if (updatedPitch.length > 10) {
 					updatedPitch.shift();
 				}
-				console.log(updatedPitch);
 
 				return updatedPitch;
 			});
@@ -76,7 +75,6 @@ function App() {
 				if (updatedRoll.length > 10) {
 					updatedRoll.shift();
 				}
-				console.log(updatedRoll);
 
 				return updatedRoll;
 			});
@@ -87,7 +85,6 @@ function App() {
 				if (updatedVoltage.length > 10) {
 					updatedVoltage.shift();
 				}
-				console.log(updatedVoltage);
 
 				return updatedVoltage;
 			});
@@ -98,14 +95,13 @@ function App() {
 				if (updatedTemperature.length > 10) {
 					updatedTemperature.shift();
 				}
-				console.log(updatedTemperature);
 
 				return updatedTemperature;
 			});
 		};
 
-		return () => {
-			Socket.close();
+		Socket.onclose = () => {
+			console.log("Disconnected from the server");
 		};
 	}, []);
 
