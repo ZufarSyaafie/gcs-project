@@ -1,11 +1,24 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-// import { useState } from "react";
-// import { useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 function Map() {
-	const coord = [51.505, -0.09];
+	const [coord, setCoord] = useState(null);
+
+	useEffect(() => {
+		const Socket = new WebSocket("ws://localhost:3001");
+
+		Socket.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+			setCoord([data.lat, data.lon]);
+		};
+
+		return () => {
+			Socket.close();
+		};
+	}, []);
 
 	return (
 		<>
