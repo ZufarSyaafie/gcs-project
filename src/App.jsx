@@ -17,7 +17,9 @@ function App() {
 	const mapRef = useRef();
 
 	useEffect(() => {
-		const Socket = new WebSocket("http://localhost:3001");
+		const Socket = new WebSocket(
+			"http://economic-trixy-zufar-3621c2b8.koyeb.app/",
+		);
 
 		Socket.onopen = () => {
 			console.log("Connected to the server");
@@ -36,6 +38,7 @@ function App() {
 					updatedTime.shift();
 				}
 
+				console.log(updatedTime);
 				return updatedTime;
 			});
 
@@ -102,6 +105,10 @@ function App() {
 
 		Socket.onclose = () => {
 			console.log("Disconnected from the server");
+		};
+
+		return () => {
+			Socket.close();
 		};
 	}, []);
 
