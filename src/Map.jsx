@@ -3,6 +3,17 @@ import React from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
+//new marker
+import L from "leaflet";
+import icon from "leaflet/dist/images/marker-icon.png";
+
+let DefaultIcon = L.icon({
+	iconUrl: icon,
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+});
+
 const MapComponent = (props) => {
 	return (
 		<>
@@ -16,7 +27,7 @@ const MapComponent = (props) => {
 				>
 					<TileLayer url="https://www.google.com/maps/vt?lyrs=s@189&x={x}&y={y}&z={z}" />
 					<Marker position={props.data}>
-						<Popup>TESTING</Popup>
+						<Popup>Location of The Object</Popup>
 					</Marker>
 				</MapContainer>
 			</div>
