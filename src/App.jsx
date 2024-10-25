@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Map from "./Map.jsx";
 import Graph from "./Graph.jsx";
 import Navbar from "./Navbar.jsx";
+import io from "socket.io-client";
 
 function App() {
 	const [coord, setCoord] = useState([0, 0]);
@@ -17,16 +18,13 @@ function App() {
 	const mapRef = useRef();
 
 	useEffect(() => {
-		const Socket = new WebSocket(
-			"http://economic-trixy-zufar-3621c2b8.koyeb.app/",
-		);
+		const socket = io("http://economic-trixy-zufar-3621c2b8.koyeb.app/");
 
-		Socket.onopen = () => {
+		socket.on("connect", () => {
 			console.log("Connected to the server");
-		};
+		});
 
-		Socket.onmessage = (event) => {
-			const data = JSON.parse(event.data);
+		socket.on("data", (data) => {
 			setCoord([data.lat, data.lon]);
 
 			setId(data.teamID);
@@ -38,7 +36,6 @@ function App() {
 					updatedTime.shift();
 				}
 
-				console.log(updatedTime);
 				return updatedTime;
 			});
 
@@ -101,14 +98,14 @@ function App() {
 
 				return updatedTemperature;
 			});
-		};
+		});
 
-		Socket.onclose = () => {
+		socket.on("disconnect", () => {
 			console.log("Disconnected from the server");
-		};
+		});
 
 		return () => {
-			Socket.close();
+			socket.close();
 		};
 	}, []);
 
@@ -117,6 +114,7 @@ function App() {
 			mapRef.current.setView(coord);
 		}
 	}, [coord]);
+
 	return (
 		<>
 			<Navbar id={id} time={time.slice(-1)[0]}></Navbar>
